@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import pe.edu.upeu.LP2_clase01.entity.Categoria;
-import pe.edu.upeu.LP2_clase01.entity.Seccion;
 
 public interface CategoriaDao {
 	Categoria create(Categoria c);

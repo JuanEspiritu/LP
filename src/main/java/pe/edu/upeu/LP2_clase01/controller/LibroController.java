@@ -16,24 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
-import pe.edu.upeu.LP2_clase01.entity.Seccion;
-import pe.edu.upeu.LP2_clase01.service.SeccionService;
+import pe.edu.upeu.LP2_clase01.entity.Libro;
+import pe.edu.upeu.LP2_clase01.service.LibroService;
 
 @RestController
-@RequestMapping("/secciones")
-public class SeccionController {
-
+@RequestMapping("/libros")
+public class LibroController {
 	@Autowired
-	private SeccionService seccionService;
+	private LibroService libroService;
 	
 	@GetMapping
-	public ResponseEntity<List<Seccion>> readAll(){
+	public ResponseEntity<List<Libro>> readAll(){
 		try {
-			List<Seccion> Seccions = seccionService.readAll();
-			if(Seccions.isEmpty()) {
+			List<Libro> Libros = libroService.readAll();
+			if(Libros.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(Seccions, HttpStatus.OK);
+			return new ResponseEntity<>(Libros, HttpStatus.OK);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -41,10 +40,10 @@ public class SeccionController {
 		
 	}
 	@PostMapping
-	public ResponseEntity<Seccion> crear(@Valid @RequestBody Seccion cat){
+	public ResponseEntity<Libro> crear(@Valid @RequestBody Libro lib){
 		try {
-			Seccion c = seccionService.create(cat);
-			return new ResponseEntity<>(c, HttpStatus.CREATED);
+			Libro l = libroService.create(lib);
+			return new ResponseEntity<>(l, HttpStatus.CREATED);
 		} catch (Exception e) {
 			// TODO: handle exception
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -54,11 +53,11 @@ public class SeccionController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getSeccionId(@PathVariable("id") Long id){
 		try {
-			Optional<Seccion> c = seccionService.read(id);
-			if(c.isEmpty()) {
+			Optional<Libro> l = libroService.read(id);
+			if(l.isEmpty()) {
 				return new ResponseEntity<>(null, HttpStatus.NO_CONTENT);
 			}
-			return new ResponseEntity<>(c, HttpStatus.OK);
+			return new ResponseEntity<>(l, HttpStatus.OK);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -67,9 +66,9 @@ public class SeccionController {
 		
 	}
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Seccion> delSeccion(@PathVariable("id") Long id){
+	public ResponseEntity<Libro> delSeccion(@PathVariable("id") Long id){
 		try {
-			seccionService.delete(id);
+			libroService.delete(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -78,14 +77,14 @@ public class SeccionController {
 		
 	}
 	@PutMapping("/{id}")
-	public ResponseEntity<?> updateSeccion(@PathVariable("id") Long id, @Valid @RequestBody Seccion cat){
+	public ResponseEntity<?> updateSeccion(@PathVariable("id") Long id, @Valid @RequestBody Libro lib){
 
-			Optional<Seccion> c = seccionService.read(id);
-			if(c.isEmpty()) {
+			Optional<Libro> l = libroService.read(id);
+			if(l.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 			}else {
 				
-				return new ResponseEntity<>(seccionService.update(cat), HttpStatus.OK);
+				return new ResponseEntity<>(libroService.update(lib), HttpStatus.OK);
 			}		
 		
 	}
